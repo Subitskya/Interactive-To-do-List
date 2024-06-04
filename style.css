@@ -1,4 +1,6 @@
 body{
+    background: linear-gradient(#e66465, #9198e5);
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -6,30 +8,50 @@ h1{
     text-align: center;
 }
 
-#new-task{
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
+.tasks{
+    display: flex;
+    justify-content: center;
+}
+
+.list{
+    /* display: flex; */
+    justify-content: center;
+    padding: 10px 0;
+}
+
+#new-task{
+    border: 1px solid #ddd;
+    border-radius: 10px;
     width:300px;
     padding: 10px;
     margin: 10px;
 }
 
 #add-task{
+    border: 1px solid #ddd;
+    border-radius: 10px;
     padding: 10px 20px;
     margin: 10px;
 }
-
+s
 #todo-list {
     list-style: none;
     padding: 0;
 }
 #todo-list li{
+    border-radius: 10px;
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px; 
     background: #f4f4f4;
     border: 1px solid #ddd;
     display: flex;
     align-items: center;
-    /* flex-direction: column; */
     justify-content: space-between;
 }
 
@@ -38,17 +60,25 @@ h1{
     color: gray;
 }
 
-.edit-task, .remove-task{
+.edit-task{
     background: #007BFF;
     color: white;
-    border: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.remove-task{
+    background: #007BFF;
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.edit-task, .remove-task:hover{
-    background: #0056b3;
-}
 
 .remove-task{
     background: red;

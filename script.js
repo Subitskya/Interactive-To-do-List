@@ -1,16 +1,17 @@
 const newTaskInput = document.getElementById('new-task');
 const addTaskButton = document.getElementById('add-task');
 const todoList = document.getElementById('todo-list');
+let currentEditTask = null;
 
 document.addEventListener('DOMContentLoaded', loadTasks);
 
-addTaskButton.addEventListener('click', addTaskHandler);
+addTaskButton.addEventListener('click', handleAddOrUpdateTask);
 
 todoList.addEventListener('click', function(event) {
     if (event.target.type === 'checkbox') {
         event.target.parentElement.classList.toggle('completed');
         saveTasks();
-    } else if (event.target.classList.contains('remove-task')) {
+    }  else if (event.target.closest('.remove-task')) {
         event.target.closest('li').remove();
         saveTasks();
     } else if (event.target.classList.contains('edit-task')) {
@@ -18,20 +19,26 @@ todoList.addEventListener('click', function(event) {
         const text = listItem.childNodes[1].nodeValue.trim();
         newTaskInput.value = text;
         addTaskButton.textContent = 'Update Task';
-        addTaskButton.removeEventListener('click', addTaskHandler);
+        addTaskButton.removeEventListener('click', handleAddOrUpdateTask);
         addTaskButton.addEventListener('click', function updateHandler() {
             updateTask(listItem, newTaskInput.value.trim());
             addTaskButton.textContent = 'Add Task';
             addTaskButton.removeEventListener('click', updateHandler);
-            addTaskButton.addEventListener('click', addTaskHandler);
+            addTaskButton.addEventListener('click', handleAddOrUpdateTask);
         });
     }
 });
 
-function addTaskHandler() {
-    const newTaskText = newTaskInput.value.trim();
-    if (newTaskText) {
-        addTask(newTaskText);
+function handleAddOrUpdateTask() {
+    const taskText = newTaskInput.value.trim();
+    if (taskText) {
+        if (currentEditTask) {
+            updateTask(currentEditTask, taskText);
+            addTaskButton.textContent = 'Add Task';
+            currentEditTask = null;
+        } else {
+            addTask(taskText);
+        }
         saveTasks();
         newTaskInput.value = '';
     }
@@ -52,13 +59,19 @@ function addTask(taskText, isCompleted = false) {
     const buttonGroup = document.createElement('div');
     buttonGroup.className = 'button-group';
 
+    // const editButton = document.createElement('button');
+    // // editButton.textContent = 'Edit';
+    // // editButton.className = 'edit-task';
+    // editButton.innerHTML = '<i class="fas fa-edit"></i>'; 
+    // buttonGroup.appendChild(editButton);
+
     const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
+    editButton.innerHTML = '<i class="fas fa-edit"></i>';
     editButton.className = 'edit-task';
     buttonGroup.appendChild(editButton);
 
     const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove';
+    removeButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
     removeButton.className = 'remove-task';
     buttonGroup.appendChild(removeButton);
 

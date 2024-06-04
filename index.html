@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive To-do-list</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 <body>
   <h1>My To-do List</h1>
-  <input type="text" name="" id="new-task" placeholder="Enter new task"> 
-  <button id="add-task">Add Task</button>
-  <ul id="todo-list"></ul>
+  <div class="container">
+    <div class="tasks">
+      <input type="text" name="" id="new-task" placeholder="Enter new task"> 
+      <button id="add-task">Add Task</button>
+    </div>
+    <div class="list">
+      <ul id="todo-list"></ul>
+    </div>
+  </div>
   <script src="script.js"></script> 
 </body>
 </html>
